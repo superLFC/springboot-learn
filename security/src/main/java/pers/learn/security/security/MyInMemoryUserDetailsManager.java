@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,8 @@ public class MyInMemoryUserDetailsManager implements UserDetailsManager {
     private static Map<String, UserDetails> users = new HashMap<>();
 
     static {
-        User user = new User("Darwin", "123456", Collections.emptyList());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User user = new User("Darwin", "{bcrypt}" + encoder.encode("123456"), Collections.emptyList());
         users.put(user.getUsername(), user);
         log.info("init user, username:{}, password:{}", user.getUsername(), user.getPassword());
     }

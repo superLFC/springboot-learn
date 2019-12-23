@@ -12,3 +12,7 @@ jpa:
   hibernate:
   ddl-auto: update
   show-sql: true
+
+logging:
+    level:
+      root: info
