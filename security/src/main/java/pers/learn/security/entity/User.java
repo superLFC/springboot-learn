@@ -1,37 +1,66 @@
 package pers.learn.security.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 @Data
-@Table(name = "t_user")
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "user_name", columnDefinition = "varchar(128) not null")
-    private String userName;
+    private String username;
 
-    @Column(name = "password", columnDefinition = "varchar(128) not null")
     private String password;
 
-    @Column(name = "date_create")
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
     private Date dateCreate;
 
-    @Column(name = "date_update")
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
     private Date dateUpdate;
+
+    private Date expriedTime;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    /**
+     * 账号是否过期
+     * @return
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * 账号是否锁定
+     * @return
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * 证书是否过期
+     * @return
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * 账号是否可用
+     * @return
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

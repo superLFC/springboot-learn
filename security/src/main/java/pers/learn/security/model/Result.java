@@ -1,6 +1,7 @@
 package pers.learn.security.model;
 
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pers.learn.security.enums.ServerStautsEnum;
 
 @Data

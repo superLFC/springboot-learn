@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.learn.security.mapper.UserMapper">
+    <resultMap id="basic_map" type="pers.learn.security.entity.User">
+        <id column="id" property="id"/>
+        <result column="user_name" property="username"/>
+        <result column="password" property="password"/>
+        <result column="date_create" property="dateCreate"/>
+        <result column="date_update" property="dateUpdate"/>
+    </resultMap>
+    <select id="findByUsername" resultMap="basic_map">
+        select * from t_user where user_name = #{userName}
+    </select>
+
+    <update id="updatePassByUserName">
+        update t_user set password = #{password} where user_name = #{userName}
+    </update>
+
+    <insert id="insert" parameterType="pers.learn.security.entity.User">
+        insert into t_user
+        (user_name,
+        password,
+        expired_time,
+        date_create,
+        date_update)
+        value
+        (username,
+        password,
+        expriedTime,
+        dateCreate,
+        dateUpdate)
+    </insert>
+</mapper>

@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class UserVo {
 
-    private String userName;
+    private String username;
 
     private Date dateCreate;
 
